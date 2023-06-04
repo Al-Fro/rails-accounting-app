@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :compensation_requests
+
+  patch 'approve', to: 'compensation_requests#approve'
   root to: "logins#new"
 
   get 'login', to: 'logins#new'
