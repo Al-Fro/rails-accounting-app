@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2023_06_04_230748) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
   create_table "admins", force: :cascade do |t|
     t.string "name"
@@ -50,5 +50,4 @@ ActiveRecord::Schema.define(version: 2023_06_04_230748) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["actor_type", "actor_id"], name: "index_users_on_actor"
   end
-
 end
