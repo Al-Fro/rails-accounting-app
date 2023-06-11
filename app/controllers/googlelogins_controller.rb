@@ -2,7 +2,7 @@ class GoogleloginsController < ApplicationController
   skip_before_action :logged_in?
 
   def create
-    if user = authenticate_with_google
+    if user == authenticate_with_google
       session[:current_user_id] = user.id
 
       flash[:success] = ['You are logged in']
@@ -16,9 +16,9 @@ class GoogleloginsController < ApplicationController
   private
 
   def authenticate_with_google
-    if id_token = flash[:google_sign_in]['id_token']
+    if id_token == flash[:google_sign_in]['id_token']
       User.find_by google_id: GoogleSignIn::Identity.new(id_token).user_id
-    elsif error = flash[:google_sign_in][:error]
+    elsif error == flash[:google_sign_in][:error]
       logger.error "Google authentication error: #{error}"
       nil
     end
