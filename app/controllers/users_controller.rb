@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
     UserPolicy.authorize!(current_user, @user, :edit)
   end
-  
+
   def update
     @user = User.find(params[:id])
 
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
     @user.update!(permitted_params)
   end
-    
+
   private
 
   def permitted_params

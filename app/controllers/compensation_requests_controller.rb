@@ -11,8 +11,7 @@ class CompensationRequestsController < ApplicationController
     @compensation_request = CompensationRequest.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @compensation_request = CompensationRequest.new(permitted_params)
@@ -20,7 +19,8 @@ class CompensationRequestsController < ApplicationController
     @compensation_request.status = :pending
 
     if @compensation_request.save!
-      redirect_to compensation_request_url(@compensation_request), notice: ["Compensation request was successfully created."]
+      redirect_to compensation_request_url(@compensation_request),
+                  notice: ['Compensation request was successfully created.']
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,9 +31,9 @@ class CompensationRequestsController < ApplicationController
     @compensation_request.update!(status: 'approved')
   end
 
-
   private
-    def permitted_params
-      params.require(:compensation_request).permit(:amount, :reason, :currency)
-    end
+
+  def permitted_params
+    params.require(:compensation_request).permit(:amount, :reason, :currency)
+  end
 end

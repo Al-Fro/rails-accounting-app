@@ -4,10 +4,10 @@ class ApplicationController < ActionController::Base
   rescue_from ApplicationPolicy::ActionForbiddenError, with: :render_403
 
   def logged_in?
-    unless current_user
-      flash[:danger] = ['Unathorize user']
-      redirect_to root_path
-    end
+    return if current_user
+
+    flash[:danger] = ['Unathorize user']
+    redirect_to root_path
   end
 
   def current_user

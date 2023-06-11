@@ -7,9 +7,9 @@ class ApplicationPolicy
   end
 
   def result(action)
-    unless send("#{action}?")
-      raise ActionForbiddenError
-    end
+    return if send("#{action}?")
+
+    raise ActionForbiddenError
   end
 
   class << self

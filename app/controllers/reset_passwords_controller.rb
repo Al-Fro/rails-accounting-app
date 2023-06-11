@@ -14,7 +14,7 @@ class ResetPasswordsController < ApplicationController
 
     @user.update!(permitted_params)
   end
-    
+
   private
 
   def permitted_params
