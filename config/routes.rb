@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :compensation_requests, only: %i[index show udpate]
+    resources :employees, only: %i[index show]
+  end
+
   resources :compensation_requests
 
-  patch 'approve', to: 'compensation_requests#approve'
-  root to: 'logins#new'
+  root to: "logins#new"
 
   get 'login', to: 'logins#new'
   post 'login', to: 'logins#create'
@@ -10,5 +14,4 @@ Rails.application.routes.draw do
   get 'googlelogin/create', to: 'googlelogins#create', as: :create_google_login
 
   resources :users
-  resources :reset_passwords, only: %i[edit update]
 end

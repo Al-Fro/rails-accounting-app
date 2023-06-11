@@ -10,27 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_230_530_112_948) do
+ActiveRecord::Schema.define(version: 2023_06_04_230748) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
-  create_table 'compensation_requests', force: :cascade do |t|
-    t.bigint 'user_id'
-    t.decimal 'amount'
-    t.string 'reason'
-    t.string 'currency'
-    t.string 'status'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "admins", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'email'
-    t.string 'password'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.string 'first_name'
-    t.string 'google_id'
-    t.string 'role'
+  create_table "compensation_requests", force: :cascade do |t|
+    t.string "actor_type", null: false
+    t.bigint "actor_id", null: false
+    t.decimal "amount"
+    t.string "reason"
+    t.string "currency"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["actor_type", "actor_id"], name: "index_compensation_requests_on_actor"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "actor_type", null: false
+    t.bigint "actor_id", null: false
+    t.string "email"
+    t.string "password"
+    t.string "google_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["actor_type", "actor_id"], name: "index_users_on_actor"
   end
 end

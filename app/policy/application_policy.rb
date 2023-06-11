@@ -7,9 +7,27 @@ class ApplicationPolicy
   end
 
   def result(action)
-    return if send("#{action}?")
+    raise ActionForbiddenError unless send("#{action}?")
+  end
 
-    raise ActionForbiddenError
+  def same_user?
+    if enumerable_resource?
+      @resource.all? { |r| @current_user.id == r.actor.user_id }
+    else
+      @current_user.id == @resource.actor.user_id
+    end
+  end
+
+  def enumerable_resource?
+    @resource.respond_to? :all?
+  end
+
+  def admin?
+    @current_user.admin?
+  end
+
+  def employee?
+    @current_user.employee?
   end
 
   class << self

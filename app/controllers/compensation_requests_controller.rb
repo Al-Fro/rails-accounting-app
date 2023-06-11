@@ -1,6 +1,8 @@
 class CompensationRequestsController < ApplicationController
   def index
-    @compensation_requests = CompensationRequest.all
+    @compensation_requests = current_actor.compensation_requests
+
+    CompensationRequestPolicy.authorize!(current_user, @compensation_requests, :index)
   end
 
   def show
@@ -24,11 +26,6 @@ class CompensationRequestsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def approve
-    @compensation_request = CompensationRequest.find(params[:id])
-    @compensation_request.update!(status: 'approved')
   end
 
   private
