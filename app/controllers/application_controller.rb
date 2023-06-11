@@ -10,11 +10,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_user
-    User.find_by(id: session[:current_user_id])
-  end
+  def current_user = User.find_by(id: session[:current_user_id])
 
-  def render_403
-    render 'errors/403'
-  end
+  def current_actor = current_user.actor
+
+  def render_403 = render 'errors/403'
 end

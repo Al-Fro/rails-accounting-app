@@ -1,9 +1,13 @@
 class User < ApplicationRecord
-  extend Enumerize
+  belongs_to :actor, polymorphic: true
 
-  enumerize :role, in: %i[simple_user admin], default: :simple_user
+  scope :not_admins, -> { where.not(actor_type: 'Admin') }
 
-  has_many :compensation_requests, dependent: :destroy
+  def employee?
+    actor_type == 'Employee'
+  end
 
-  scope :not_admins, -> { where.not(role: 'admin') }
+  def admin?
+    actor_type == 'Admin'
+  end
 end
