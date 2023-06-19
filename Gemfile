@@ -28,7 +28,6 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootstrap', '~> 5.3.0.alpha3'
 gem 'enumerize'
 gem 'google_sign_in'
-gem 'rubocop'
 gem 'simple_form'
 gem 'slim'
 
@@ -36,6 +35,7 @@ gem 'slim'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
+  gem 'rspec-rails', '~> 6.0.0'
   gem 'rubocop'
   gem 'factory_bot_rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
